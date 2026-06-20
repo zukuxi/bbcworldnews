@@ -26,9 +26,9 @@ try:
     # 创建新的 RSS 结构
     rss = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
-    ET.SubElement(channel, "title").text = "BBC World (HTML 直连版)"
+    ET.SubElement(channel, "title").text = "BBC World (kkgithub 纯净版)"
     ET.SubElement(channel, "link").text = f"https://github.com/{GITHUB_USER}/{GITHUB_REPO}"
-    ET.SubElement(channel, "description").text = "自建标准网页源，完美适配完整抓取"
+    ET.SubElement(channel, "description").text = "完全使用 kkgithub 直连，彻底抛弃 ghproxy"
 
     if os.path.exists("html_articles"):
         shutil.rmtree("html_articles")
@@ -76,7 +76,7 @@ try:
         with open(f"html_articles/{html_filename}", "w", encoding="utf-8") as f:
             f.write(html_content)
 
-        # 【关键修改】使用 kkgithub 作为内部文章的直连抓取地址，抛弃双层代理
+        # ✨ 【关键修改点】：给 x3 提供的每一篇文章链接，也全部使用通畅的 kkgithub！
         proxy_html_url = f"https://raw.kkgithub.com/{GITHUB_USER}/{GITHUB_REPO}/main/html_articles/{html_filename}"
 
         new_item = ET.SubElement(channel, "item")
@@ -84,7 +84,7 @@ try:
         ET.SubElement(new_item, "link").text = proxy_html_url
         if pub_date:
             ET.SubElement(new_item, "pubDate").text = pub_date
-        ET.SubElement(new_item, "description").text = "请点击进入阅读完整文章..."
+        ET.SubElement(new_item, "description").text = "请点击标题进入阅读完整文章..."
 
     tree = ET.ElementTree(rss)
     tree.write("bbc_world.xml", encoding="utf-8", xml_declaration=True)
@@ -92,4 +92,3 @@ try:
 
 except Exception as e:
     print(f"运行发生崩溃: {e}")
-
