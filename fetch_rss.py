@@ -77,7 +77,7 @@ try:
             f.write(html_content)
 
         # ✨ 【关键修改点】：给 x3 提供的每一篇文章链接，也全部使用通畅的 kkgithub！
-        proxy_html_url = f"https://raw.kkgithub.com/{GITHUB_USER}/{GITHUB_REPO}/main/html_articles/{html_filename}"
+        proxy_html_url = f"https://ghproxy.net/https://raw.githubusercontent.com/{GITHUB_USER}/{GITHUB_REPO}/main/html_articles/{html_filename}"
 
         new_item = ET.SubElement(channel, "item")
         ET.SubElement(new_item, "title").text = title
